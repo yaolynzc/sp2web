@@ -54,10 +54,11 @@ function initList(){
       if(response.success){
         var data = response.dt;
         for(var i in data){
-          var localtime = new Date(data[i].ctime).format('yyyy-MM-dd h:m:s');
+          var localtime = new Date(data[i].CTIME).format('yyyy-MM-dd hh:mm:ss');
+          // var localtime = data[i].CTIME.replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
           var template = '<tr>'
-                       + '<td>' + data[i].name + '</td>'
-                       + '<td><a href="/down/' + data[i].file + '">' + data[i].file + '</a></td>'
+                       + '<td>' + data[i].NAME + '</td>'
+                       + '<td><a href="/down/' + data[i].ID + '">' + data[i].ID + '</a></td>'
                        + '<td>' + localtime + '</td>'
                        + '</tr>';
           $("#tdlist").append(template);
@@ -94,10 +95,11 @@ function getList(){
         var data = response.dt;
         $("#tdlist").html('');
         for(var i in data){
-          var localtime = new Date(data[i].ctime).format('yyyy-MM-dd h:m:s');
+          var localtime = new Date(data[i].CTIME).format('yyyy-MM-dd hh:mm:ss');
+          // var localtime = data[i].CTIME.replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '');
           var template = '<tr>'
-                       + '<td>' + data[i].name + '</td>'
-                       + '<td><a href="/down/' + data[i].file + '">' + data[i].file + '</a></td>'
+                       + '<td>' + data[i].NAME + '</td>'
+                       + '<td><a href="/down/' + data[i].ID + '">' + data[i].ID + '</a></td>'
                        + '<td>' + localtime + '</td>'
                        + '</tr>';
           $("#tdlist").append(template);

@@ -2,20 +2,15 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 
-// 1.引入mongoose模块
-var mongoose = require('mongoose');
-// 2.设置mongoose的promise，连接服务器
-mongoose.Promise = global.Promise;
-var db = mongoose.connect('mongodb://admin:flame@127.0.0.1:27017/sp2web',{useMongoClient: true});
-// 3.创建模型
-var listModel = mongoose.model('torlist',
-      {
-        name:String,
-        file:String,
-        memo:JSON,
-        ctime:Date
-      }
-    );
+// 1.引入mysql模块
+var mysql = require('mysql');
+// 2.设置mysql连接参数
+var connection = mysql.createConnection({
+    host     : '127.0.0.1',
+    user     : 'root',
+    password : 'flame',
+    database : 'sp2web'
+  });
 
 module.exports = function(app){
   /* GET home page. */
@@ -29,37 +24,41 @@ module.exports = function(app){
 
     // console.log(page);
     if(key){
-      var result = listModel.find({"name": {$regex: key, $options:'i'}},function(err,data){
-        if(err){
-          console.log(err);
-        }else{
-          // console.log(data);
+      connection.query({
+        sql: 'SELECT * FROM `torlists` WHERE `NAME` like "%' + key + '%" order by `CTIME` desc limit ' + 20 * (page - 1) + ',20 ',
+        timeout: 40000, // 40s
+      }, function (error, results, fields) {
+        if (error) {
+          console.log(error);
+        } else {
           res.send({
-            success:true,
-            dt:data,
-            count:data.length
+            success: true,
+            dt: results,
+            count: results.length
           });
         }
-      }).limit(20).skip(20*(page - 1)).sort({ctime: 'desc' });
+      });
     }else{
-      var result = listModel.find(function(err,data){
-        if(err){
-          console.log(err);
-        }else{
-          // console.log(data);
+      connection.query({
+        sql: 'SELECT * FROM `torlists` order by `CTIME` desc limit ' + 20 * (page - 1) + ',20 ',
+        timeout: 40000, // 40s
+      }, function (error, results, fields) {
+        if (error) {
+          console.log(error);
+        } else {
           res.send({
-            success:true,
-            dt:data,
-            count:data.length
+            success: true,
+            dt: results,
+            count: results.length
           });
         }
-      }).limit(20).skip(20*(page - 1)).sort({ctime: 'desc' });
+      });
     }
   });
 
   app.get('/down/:torname', function(req, res, next) {
     // console.log(req.params.torname);
     var filename = req.params.torname;
-    res.download('../../sp2der/tts/' + filename,filename + '.torrent');
+    res.download('../sp2der2/tts/' + filename,filename + '.torrent');
   });
 };
