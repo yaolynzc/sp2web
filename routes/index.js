@@ -25,7 +25,7 @@ module.exports = function(app){
     // console.log(page);
     if(key){
       connection.query({
-        sql: 'SELECT * FROM `torlists` WHERE `NAME` like "%' + key + '%" order by `CTIME` desc limit ' + 20 * (page - 1) + ',20 ',
+        sql: 'SELECT ID,NAME,CTIME FROM `torlists` WHERE `NAME` like "%' + key + '%" order by `CTIME` desc limit ' + 20 * (page - 1) + ',20 ',
         timeout: 40000, // 40s
       }, function (error, results, fields) {
         if (error) {
@@ -40,7 +40,7 @@ module.exports = function(app){
       });
     }else{
       connection.query({
-        sql: 'SELECT * FROM `torlists` order by `CTIME` desc limit ' + 20 * (page - 1) + ',20 ',
+        sql: 'SELECT ID,NAME,CTIME FROM `torlists` order by `CTIME` desc limit ' + 20 * (page - 1) + ',20 ',
         timeout: 40000, // 40s
       }, function (error, results, fields) {
         if (error) {
@@ -59,6 +59,6 @@ module.exports = function(app){
   app.get('/down/:torname', function(req, res, next) {
     // console.log(req.params.torname);
     var filename = req.params.torname;
-    res.download('../sp2der2/tts/' + filename,filename + '.torrent');
+    res.download('/data/sp2der/tts/' + filename,filename + '.torrent');
   });
 };
