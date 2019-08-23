@@ -66,6 +66,7 @@ function initList(){
           var localtime = new Date(data[i].meta.createdAt).format('yyyy-MM-dd hh:mm:ss');
               var template = '<tr>'
               + '<td>' + data[i].name + '</td>'
+              + '<td>' + data[i].type + '</td>'
               + '<td>magnet:?xt=urn:btih:' + data[i].infohash + '</td>'
               + '<td>' + localtime + '</td>'
               + '</tr>';
@@ -113,6 +114,7 @@ function getList(){
           var localtime = new Date(data[i].meta.createdAt).format('yyyy-MM-dd hh:mm:ss');
               var template = '<tr>'
               + '<td>' + data[i].name + '</td>'
+              + '<td>' + data[i].type + '</td>'
               + '<td>magnet:?xt=urn:btih:' + data[i].infohash + '</td>'
               + '<td>' + localtime + '</td>'
               + '</tr>';
