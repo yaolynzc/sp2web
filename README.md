@@ -1,6 +1,6 @@
 ## 介绍
 
-基于个人改造后的的torrent爬虫程序(地址：https://github.com/yaolynzc/sp2der)  
+采用以下地址的磁力爬虫（地址：https://github.com/ssstk/manget2torrent.git）
 结合个人实际需求开发的简易web应用，主要包括查询、搜索、下载种子等功能
 
 ## 用途
