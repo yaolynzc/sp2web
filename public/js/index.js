@@ -4,6 +4,13 @@ var nextpage = true;
 $(document).ready(function(){
   initList();
 
+  $("#name").keypress(function(e){
+    if (e.keyCode == 13) {
+      currentPage = 1;
+      getList();
+    }
+  })
+  
   $("#btn_search").click(function(){
     currentPage = 1;
     getList();
