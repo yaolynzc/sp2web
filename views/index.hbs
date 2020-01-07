@@ -1,55 +1,58 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <title>{{title}}</title>
 
-    <!-- 引入 Bootstrap -->
-    <link href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <link href="http://cdn.bootcss.com/bootstrap-table/1.11.0/bootstrap-table.min.css">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+	<title>{{title}}</title>
 
-  </head>
-  <body>
-    <h1>{{title}}</h1>
-    <div>
-      <input class="form-control-small" type="text" name="name" id="name"/>
-      <button class="btn btn-primary" type="button" id="btn_search"><span class="glyphicon glyphicon-search">搜索</button>
-      <button class="btn btn-success" type="button" id="btn_newlist">最新发布</button>
-    </div>
+	<!-- 引入 Bootstrap -->
+	<link href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+	<link href="http://cdn.bootcss.com/bootstrap-table/1.11.0/bootstrap-table.min.css">
 
-    <table class="table table-hover table-condensed" style="word-wrap:break-word;word-break:break-all;">
-    <thead>
-        <tr>
-            <th>名称</th>
-            <th>类型</th>
-            <th>文件</th>
-            <th>时间</th>
-        </tr>
-    </thead>
-    <tbody id="tdlist">
-        {{!-- <tr>
+</head>
+
+<body>
+	<h1>{{title}}</h1>
+	<div>
+		<input class="form-control-small" type="text" name="name" id="name" />
+		<button class="btn btn-primary" type="button" id="btn_search"><span class="glyphicon glyphicon-search">搜索</button>
+		<button class="btn btn-success" type="button" id="btn_newlist">最新发布</button>
+	</div>
+
+	<table class="table table-hover table-condensed" style="word-wrap:break-word;word-break:break-all;">
+		<thead>
+			<tr>
+				<th>名称</th>
+				{{!-- <th>类型</th> --}}
+				<th>文件</th>
+				<th>时间</th>
+			</tr>
+		</thead>
+		<tbody id="tdlist">
+			{{!-- <tr>
             <td>{{this.name}}</td>
             <td><a href='/down/{{this.file}}'>{{this.file}}</a></td>
             <td>{{this.ctime}}</td>
         </tr> --}}
-    </tbody>
-    </table>
+		</tbody>
+	</table>
 
-    <nav aria-label="...">
-      <ul class="pager">
-        <li class="disabled" ><a href="javascript:;" id="prepage">上一页</a></li>
-        <li><a href="javascript:;" id="nextpage">下一页</a></li>
-      </ul>
-    </nav>
+	<nav aria-label="...">
+		<ul class="pager">
+			<li class="disabled"><a href="javascript:;" id="prepage">上一页</a></li>
+			<li><a href="javascript:;" id="nextpage">下一页</a></li>
+		</ul>
+	</nav>
 
-    <script src="http://cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
-    <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <script src="http://cdn.bootcss.com/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>
-    <script src="http://cdn.bootcss.com/bootstrap-table/1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
+	<script src="http://cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
+	<script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+	<script src="http://cdn.bootcss.com/bootstrap-table/1.11.0/bootstrap-table.min.js"></script>
+	<script src="http://cdn.bootcss.com/bootstrap-table/1.11.0/locale/bootstrap-table-zh-CN.min.js"></script>
 
-    <script src="js/index.js"></script>
-  </body>
+	<script src="js/index.js"></script>
+</body>
+
 </html>

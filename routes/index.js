@@ -1,10 +1,16 @@
 var express = require('express');
 var router = express.Router();
-const mongoose = require('mongoose')
-const Magnet = require('./magnet')
+var path = require('path');
 
-const promise = mongoose.connect('mongodb://127.0.0.1:27017/test',{useMongoClient:true})
-mongoose.Promise = global.Promise
+// 1.引入mysql模块
+var mysql = require('mysql');
+// 2.设置mysql连接参数
+var connection = mysql.createConnection({
+    host     : '127.0.0.1',
+    user     : 'root',
+    password : '*36801589!Fla#',
+    database : 'sp2web'
+  });
 
 module.exports = function(app){
   /* GET home page. */
@@ -18,22 +24,12 @@ module.exports = function(app){
 
     // console.log(page);
     if(key){
-      let query = new RegExp(key,'i')
-      Magnet.find({
-        $or:[
-          {name:{$regex:query}}
-        ]
-      })
-      .skip(20*(page-1))
-      .limit(20)
-      .sort({'_id':-1})
-      .exec(function(error,results){
-        if(error){
-          res.send({
-            success: false,
-            dt: error.message,
-            count: 0
-          });
+      connection.query({
+        sql: 'SELECT ID,NAME,CTIME FROM `torlists` WHERE `NAME` like "%' + key + '%" order by `CTIME` desc limit ' + 20 * (page - 1) + ',20 ',
+        timeout: 40000, // 40s
+      }, function (error, results, fields) {
+        if (error) {
+          console.log(error);
         } else {
           res.send({
             success: true,
@@ -41,22 +37,14 @@ module.exports = function(app){
             count: results.length
           });
         }
-      })
-      
-
+      });
     }else{
-      Magnet.find()
-      .skip(20*(page-1))
-      .limit(20)
-      .sort({'_id':-1})
-      .exec(function(error,results){
-        // console.log(results)
-        if(error){
-          res.send({
-            success: false,
-            dt: error.message,
-            count: 0
-          });
+      connection.query({
+        sql: 'SELECT ID,NAME,CTIME FROM `torlists` order by `CTIME` desc limit ' + 20 * (page - 1) + ',20 ',
+        timeout: 40000, // 40s
+      }, function (error, results, fields) {
+        if (error) {
+          console.log(error);
         } else {
           res.send({
             success: true,
@@ -64,13 +52,13 @@ module.exports = function(app){
             count: results.length
           });
         }
-      })
+      });
     }
   });
 
   app.get('/down/:torname', function(req, res, next) {
     // console.log(req.params.torname);
-    // var filename = req.params.torname;
-    // res.download('/data/sp2der/tts/' + filename,filename + '.torrent');
+    var filename = req.params.torname;
+    res.download('/data/sp2der/tts/' + filename,filename + '.torrent');
   });
 };
